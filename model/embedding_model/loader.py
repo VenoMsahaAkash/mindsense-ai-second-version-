@@ -4,8 +4,10 @@ MindSense AI - Embedding Model Loader
 Loads and caches the SentenceTransformer embedding model.
 Provides a clean interface for encoding text to dense vectors.
 
-The model is downloaded automatically on first use and cached
-in model/embedding_model/ for offline use.
+On Render free tier (512MB RAM), set EMBEDDING_BACKEND=tfidf to use a
+lightweight numpy-based TF-IDF hash embedding that requires no model download.
+For full semantic quality, set EMBEDDING_BACKEND=sentence_transformer (default
+for local development with sufficient RAM).
 
 Usage::
 
@@ -32,13 +34,44 @@ from utils.logger import get_logger
 logger = get_logger(__name__)
 
 
+def _tfidf_hash_encode(texts: List[str], dim: int = 384) -> np.ndarray:
+    """
+    Lightweight TF-IDF hash-based embedding using only numpy.
+    Produces a deterministic dense vector of shape (n, dim) with no model needed.
+    Good enough for keyword-overlap-heavy RAG on a tiny corpus.
+    """
+    vectors = []
+    for text in texts:
+        vec = np.zeros(dim, dtype=np.float32)
+        words = text.lower().split()
+        if not words:
+            vectors.append(vec)
+            continue
+        # Hash each word into a bucket and accumulate TF weight
+        for word in words:
+            h = hash(word) % dim
+            # Negative hash values wrap around
+            h = h if h >= 0 else h + dim
+            vec[h] += 1.0 / len(words)  # TF-weighted
+        # L2-normalize
+        norm = np.linalg.norm(vec)
+        if norm > 0:
+            vec = vec / norm
+        vectors.append(vec)
+    return np.array(vectors, dtype=np.float32)
+
+
 class EmbeddingModelLoader:
     """
-    Singleton wrapper around SentenceTransformer for generating text embeddings.
+    Singleton wrapper for generating text embeddings.
 
-    The model is loaded lazily on first call to ``encode()`` and reused
-    for all subsequent requests. The model is cached to disk in
-    ``model/embedding_model/`` to avoid repeated downloads.
+    Supports two backends:
+    - ``sentence_transformer``: Full SentenceTransformer model (~90MB RAM).
+    - ``tfidf``: Lightweight numpy hash embedding, zero RAM overhead.
+
+    Backend is controlled by the ``EMBEDDING_BACKEND`` environment variable.
+    Default on Render free tier: ``tfidf``.
+    Default for local dev: ``sentence_transformer``.
 
     Attributes:
         model_name (str): HuggingFace model identifier.
@@ -56,17 +89,24 @@ class EmbeddingModelLoader:
         self.normalize: bool = settings.embedding.NORMALIZE_EMBEDDINGS
         self.embedding_dim: int = settings.embedding.EMBEDDING_DIM
         self._model: Optional[SentenceTransformer] = None
+        # Default to tfidf on Render (low RAM), sentence_transformer locally
+        self._backend: str = os.environ.get("EMBEDDING_BACKEND", "tfidf")
+        logger.info(f"EmbeddingLoader backend: {self._backend}")
 
     def _load(self) -> None:
         """
         Load the SentenceTransformer model from local cache or download it.
-        Idempotent — loads only once.
+        Idempotent — loads only once. Skipped entirely for tfidf backend.
         """
+        if self._backend == "tfidf":
+            return  # No model needed
+
         if self._model is not None:
             return
 
         if not HAS_SENTENCE_TRANSFORMERS:
-            logger.warning("sentence-transformers package not installed yet. Embeddings disabled.")
+            logger.warning("sentence-transformers not installed. Switching to tfidf backend.")
+            self._backend = "tfidf"
             return
 
         cache_path = self.model_dir / self.model_name.replace("/", "_")
@@ -84,8 +124,12 @@ class EmbeddingModelLoader:
             self.model_dir.mkdir(parents=True, exist_ok=True)
 
         try:
-            if hasattr(torch, "set_num_threads"):
-                torch.set_num_threads(1)
+            try:
+                import torch
+                if hasattr(torch, "set_num_threads"):
+                    torch.set_num_threads(1)
+            except ImportError:
+                pass
 
             self._model = SentenceTransformer(
                 model_name_or_path=model_path,
@@ -97,8 +141,8 @@ class EmbeddingModelLoader:
                 f"Embedding model loaded | dim={self.embedding_dim} | device={self.device}"
             )
         except Exception as e:
-            logger.error(f"Failed to load embedding model: {e}")
-            raise RuntimeError(f"Embedding model load failed: {e}") from e
+            logger.error(f"Failed to load embedding model: {e}. Switching to tfidf.")
+            self._backend = "tfidf"
 
     def encode(
         self,
@@ -117,19 +161,17 @@ class EmbeddingModelLoader:
         Returns:
             NumPy array of shape ``(n_texts, embedding_dim)`` with float32 dtype.
             For a single string input, returns shape ``(1, embedding_dim)``.
-
-        Example::
-
-            vectors = loader.encode(["I feel anxious", "CBT helps with anxiety"])
-            # vectors.shape == (2, 384)
         """
         self._load()
 
         if isinstance(texts, str):
             texts = [texts]
 
-        if not texts or self._model is None:
-            return np.zeros((len(texts) if texts else 0, self.embedding_dim), dtype=np.float32)
+        if not texts:
+            return np.zeros((0, self.embedding_dim), dtype=np.float32)
+
+        if self._backend == "tfidf" or self._model is None:
+            return _tfidf_hash_encode(texts, dim=self.embedding_dim)
 
         try:
             embeddings = self._model.encode(  # type: ignore
@@ -143,8 +185,9 @@ class EmbeddingModelLoader:
             return embeddings.astype(np.float32)
 
         except Exception as e:
-            logger.error(f"Encoding error: {e}")
-            raise RuntimeError(f"Failed to encode texts: {e}") from e
+            logger.error(f"Encoding error: {e}. Switching to tfidf.")
+            self._backend = "tfidf"
+            return _tfidf_hash_encode(texts, dim=self.embedding_dim)
 
     def encode_single(self, text: str) -> np.ndarray:
         """

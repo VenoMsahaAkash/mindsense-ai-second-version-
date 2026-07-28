@@ -20,7 +20,9 @@ logs/
 *.pt
 *.safetensors
 *.faiss
+!model/faiss/knowledge_index.faiss
 *.pkl
+!model/faiss/metadata.json
 model/classifier/phi2_therapy_final/*
 model/embedding_model/models--*
 model/embedding_model/.locks
