@@ -251,6 +251,41 @@ docker run -p 5000:5000 --env-file .env mindsense-ai
 
 ---
 
+## 🌐 Render Deployment
+
+Deploying MindSense AI to [Render](https://render.com) is simple using Render Blueprints (`render.yaml`) or manual Web Service configuration.
+
+### Option 1: Blueprint Deployment (Recommended)
+
+1. Push your repository to **GitHub** or **GitLab**.
+2. Go to [Render Dashboard](https://dashboard.render.com) and click **New +** → **Blueprint**.
+3. Connect your repository. Render will automatically detect the `render.yaml` file.
+4. When prompted, enter your `GEMINI_API_KEY`.
+5. Click **Apply**. Render will build the environment, generate the FAISS knowledge index, and launch the service automatically.
+
+### Option 2: Manual Web Service Setup
+
+If setting up manually:
+1. Click **New +** → **Web Service** on Render.
+2. Connect your repository and select **Python 3** environment.
+3. Set **Build Command**:
+   ```bash
+   pip install --upgrade pip && pip install torch --extra-index-url https://download.pytorch.org/whl/cpu && pip install -r requirements.txt && python rag/build_index.py
+   ```
+4. Set **Start Command**:
+   ```bash
+   gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 app:app
+   ```
+5. Add Environment Variables under **Environment**:
+   - `GEMINI_API_KEY`: *(your Gemini API key)*
+   - `SECRET_KEY`: *(a secure random string)*
+   - `EMBEDDING_DEVICE`: `cpu`
+   - `FLASK_DEBUG`: `False`
+6. Click **Create Web Service**.
+
+
+---
+
 ## 🧪 Evaluation
 
 ```bash

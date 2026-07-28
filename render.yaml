@@ -1,0 +1,41 @@
+# ============================================================
+# MindSense AI — Render Blueprint Configuration
+# ============================================================
+# Deploy to Render using Blueprints:
+# 1. Connect your repository to Render (https://dashboard.render.com)
+# 2. Select "New" -> "Blueprint"
+# 3. Render will automatically detect this `render.yaml` file
+# 4. Provide your `GEMINI_API_KEY` when prompted
+# ============================================================
+
+services:
+  - type: web
+    name: mindsense-ai
+    runtime: python
+    plan: free
+    buildCommand: "pip install --upgrade pip && pip install torch --extra-index-url https://download.pytorch.org/whl/cpu && pip install -r requirements.txt && python rag/build_index.py"
+    startCommand: "gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 app:app"
+    healthCheckPath: /health
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: GEMINI_TEMPERATURE
+        value: "0.7"
+      - key: GEMINI_MAX_TOKENS
+        value: "1024"
+      - key: FLASK_DEBUG
+        value: "False"
+      - key: EMBEDDING_MODEL
+        value: sentence-transformers/all-MiniLM-L6-v2
+      - key: EMBEDDING_DEVICE
+        value: cpu
+      - key: RERANKER_DEVICE
+        value: cpu
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: SECRET_KEY
+        generateValue: true
