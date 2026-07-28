@@ -16,6 +16,7 @@ logs/
 
 # Large ML Models, Weights & Vector Indices (>50MB)
 *.pth
+!model/classifier/hybrid_full_model.pth
 *.pt
 *.safetensors
 *.faiss
