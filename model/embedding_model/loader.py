@@ -84,11 +84,15 @@ class EmbeddingModelLoader:
             self.model_dir.mkdir(parents=True, exist_ok=True)
 
         try:
+            if hasattr(torch, "set_num_threads"):
+                torch.set_num_threads(1)
+
             self._model = SentenceTransformer(
                 model_name_or_path=model_path,
                 device=self.device,
                 cache_folder=str(self.model_dir),
             )
+            import gc; gc.collect()
             logger.info(
                 f"Embedding model loaded | dim={self.embedding_dim} | device={self.device}"
             )

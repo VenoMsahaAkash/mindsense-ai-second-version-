@@ -26,8 +26,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Copy requirements first for Docker layer caching
 COPY requirements.txt .
 
-# Install Python packages into /install prefix
+# Install CPU-only PyTorch first to reduce memory footprint by ~600MB
 RUN pip install --upgrade pip && \
+    pip install --prefix=/install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu && \
     pip install --prefix=/install --no-cache-dir -r requirements.txt
 
 # --------------- Stage 2: Runtime ---------------
@@ -69,6 +70,10 @@ ENV FLASK_HOST=0.0.0.0
 ENV FLASK_PORT=5000
 ENV FLASK_DEBUG=False
 ENV LOG_LEVEL=INFO
+ENV OMP_NUM_THREADS=1
+ENV MKL_NUM_THREADS=1
+ENV OPENBLAS_NUM_THREADS=1
+ENV PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:32
 
 # Start the Flask application
 CMD ["python", "app.py"]

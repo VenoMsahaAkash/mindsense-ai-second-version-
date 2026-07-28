@@ -80,6 +80,9 @@ class PyTorchClassifierLoader:
             # 3. Instantiate Model
             self._model = HybridMentalHealthModel(num_classes=len(self.labels))
 
+            # Set single thread to prevent PyTorch thread RAM amplification on 512MB limit
+            torch.set_num_threads(1)
+
             # 4. Load weights from hybrid_full_model.pth
             weights_path = self.model_dir / "hybrid_full_model.pth"
             if weights_path.exists():
@@ -93,6 +96,8 @@ class PyTorchClassifierLoader:
                     state_dict = checkpoint
 
                 self._model.load_state_dict(state_dict, strict=True)
+                del checkpoint, state_dict
+                import gc; gc.collect()
                 logger.info("Loaded trained PyTorch weights into HybridMentalHealthModel successfully!")
             else:
                 logger.warning(
