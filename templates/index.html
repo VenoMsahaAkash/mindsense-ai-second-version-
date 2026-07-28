@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MindSense AI — Empathetic AI-powered mental health assistant using RAG and Gemini." />
+  <meta name="theme-color" content="#0f1117" />
+  <title>MindSense AI — Your Mental Health Companion</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <!-- Marked.js (Markdown parser) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+
+  <!-- DOMPurify (XSS sanitizer) -->
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.5/dist/purify.min.js"></script>
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TOP NAVBAR
+════════════════════════════════════════════════════════════ -->
+<nav class="navbar navbar-dark ms-navbar" id="mainNavbar">
+  <div class="container-fluid px-4">
+
+    <!-- Brand -->
+    <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+      <div class="brand-icon">
+        <i class="bi bi-heart-pulse-fill"></i>
+      </div>
+      <div>
+        <span class="brand-name">MindSense <span class="brand-accent">AI</span></span>
+        <span class="brand-tagline d-none d-sm-block">Mental Health Companion</span>
+      </div>
+    </a>
+
+    <!-- Right controls -->
+    <div class="d-flex align-items-center gap-3">
+
+      <!-- Status badge -->
+      <div class="status-badge" id="statusBadge" title="System Status">
+        <span class="status-dot" id="statusDot"></span>
+        <span class="status-text" id="statusText">Connecting…</span>
+      </div>
+
+      <!-- Theme toggle -->
+      <button class="ctrl-btn" id="themeToggleBtn" title="Toggle dark/light mode" aria-label="Toggle theme">
+        <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+      </button>
+
+      <!-- Clear chat -->
+      <button class="ctrl-btn" id="clearChatBtn" title="Start new session" aria-label="Clear conversation">
+        <i class="bi bi-arrow-counterclockwise"></i>
+      </button>
+    </div>
+
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MAIN LAYOUT
+════════════════════════════════════════════════════════════ -->
+<div class="main-layout">
+
+  <!-- ── SIDEBAR ─────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar">
+
+    <!-- Safety resources (always visible) -->
+    <div class="sidebar-section crisis-box">
+      <div class="crisis-box-header">
+        <i class="bi bi-shield-heart-fill text-danger me-2"></i>
+        <span>Crisis Support</span>
+      </div>
+      <div class="crisis-links">
+        <a href="tel:9152987821" class="crisis-link">
+          <i class="bi bi-telephone-fill"></i> Phone: 9152987821
+        </a>
+        <a href="mailto:icall@tiss.edu" class="crisis-link">
+          <i class="bi bi-envelope-fill"></i> Email: icall@tiss.edu
+        </a>
+      </div>
+    </div>
+
+    <!-- Session info -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">
+        <i class="bi bi-cpu me-2"></i>Classification & AI Model
+      </div>
+      <div class="session-stat">
+        <span>Model</span>
+        <span class="stat-value text-accent" style="font-size:0.68rem; color:var(--accent-from)">DistilBERT+BiLSTM+Attn</span>
+      </div>
+      <div class="session-stat">
+        <span>Predicted Category</span>
+        <span class="stat-value label-badge" id="conditionBadge">—</span>
+      </div>
+      <div class="session-stat">
+        <span>Distress Level</span>
+        <span class="stat-value risk-badge" id="riskBadge">—</span>
+      </div>
+      <div class="session-stat">
+        <span>User Intent</span>
+        <span class="stat-value" id="intentBadge">—</span>
+      </div>
+      <div class="session-stat">
+        <span>Quality Score</span>
+        <span class="stat-value" id="qualityBadge">—</span>
+      </div>
+    </div>
+
+    <!-- About -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">
+        <i class="bi bi-lightbulb me-2"></i>Research Framework
+      </div>
+      <p class="sidebar-about-text">
+        1. <strong>Custom PyTorch Classifier</strong> evaluates text sentiment & mental health class.<br/>
+        2. <strong>MindSense AI Therapist Agent</strong> generates tailored evidence-based solutions on what to do.
+      </p>
+    </div>
+
+  </aside>
+
+  <!-- ── CHAT AREA ────────────────────────────────────────── -->
+  <main class="chat-area">
+
+    <!-- Message feed -->
+    <div class="message-feed" id="messageFeed" aria-live="polite" aria-label="Conversation">
+
+      <!-- Welcome message -->
+      <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-icon">
+          <i class="bi bi-heart-pulse-fill"></i>
+        </div>
+        <h1 class="welcome-title">Welcome to MindSense AI</h1>
+        <p class="welcome-subtitle">
+          A safe, empathetic space to talk about how you're feeling.<br />
+          Everything you share is private and non-judgmental.
+        </p>
+        <div class="starter-chips" id="starterChips">
+          <button class="chip" data-msg="I've been feeling really anxious lately and I'm not sure why.">
+            😰 I feel anxious
+          </button>
+          <button class="chip" data-msg="I've been struggling with low mood and lack of motivation.">
+            😔 Feeling low
+          </button>
+          <button class="chip" data-msg="Work stress is overwhelming me and I can't relax.">
+            😩 Overwhelmed
+          </button>
+          <button class="chip" data-msg="I just need someone to talk to right now.">
+            💬 Just need to talk
+          </button>
+          <button class="chip" data-msg="What are some good coping techniques for anxiety?">
+            🧠 Coping tips
+          </button>
+          <button class="chip" data-msg="I've been having trouble sleeping due to my thoughts.">
+            😴 Can't sleep
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sources panel (slides in when sources are available) -->
+    <div class="sources-panel" id="sourcesPanel" hidden>
+      <div class="sources-header">
+        <i class="bi bi-journal-bookmark-fill me-2"></i>
+        <span>Knowledge Sources</span>
+        <button class="sources-close" id="sourcesCloseBtn" aria-label="Close sources">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <div class="sources-list" id="sourcesList"></div>
+    </div>
+
+    <!-- Input area -->
+    <div class="input-area" id="inputArea">
+
+      <!-- Typing indicator -->
+      <div class="typing-indicator" id="typingIndicator" hidden>
+        <div class="typing-avatar">
+          <i class="bi bi-heart-pulse-fill"></i>
+        </div>
+        <div class="typing-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="typing-label">MindSense is thinking…</span>
+      </div>
+
+      <!-- Input form -->
+      <form class="input-form" id="chatForm" autocomplete="off">
+        <div class="input-wrapper">
+          <textarea
+            id="userInput"
+            class="chat-input"
+            placeholder="Share what's on your mind…"
+            rows="1"
+            maxlength="2000"
+            aria-label="Your message"
+          ></textarea>
+          <div class="input-actions">
+            <span class="char-counter" id="charCounter">0 / 2000</span>
+            <button
+              type="submit"
+              class="send-btn"
+              id="sendBtn"
+              aria-label="Send message"
+              disabled
+            >
+              <i class="bi bi-send-fill" id="sendIcon"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </main>
+
+</div><!-- /.main-layout -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     CRISIS MODAL (auto-shown on critical risk)
+════════════════════════════════════════════════════════════ -->
+<div class="modal fade" id="crisisModal" tabindex="-1" aria-labelledby="crisisModalLabel" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content crisis-modal-content">
+      <div class="modal-header border-0">
+        <div class="crisis-modal-icon">
+          <i class="bi bi-shield-heart-fill"></i>
+        </div>
+        <h2 class="modal-title fs-5" id="crisisModalLabel">You Are Not Alone</h2>
+      </div>
+      <div class="modal-body">
+        <p>It sounds like you might be going through something really difficult right now.
+           Please know that you matter and help is available right now.</p>
+        <div class="crisis-resources-list">
+          <a href="tel:9152987821" class="crisis-resource-btn">
+            <i class="bi bi-telephone-fill"></i>
+            <div>
+              <strong>Crisis Helpline Phone</strong>
+              <small>Call 9152987821 (India)</small>
+            </div>
+          </a>
+          <a href="mailto:icall@tiss.edu" class="crisis-resource-btn">
+            <i class="bi bi-envelope-fill"></i>
+            <div>
+              <strong>Crisis Support Email</strong>
+              <small>icall@tiss.edu</small>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="modal-footer border-0 flex-column gap-2">
+        <button type="button" class="btn btn-crisis-primary" data-bs-dismiss="modal">
+          I'm safe — continue talking
+        </button>
+        <button type="button" class="btn btn-crisis-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast notifications -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer"></div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Main chat logic -->
+<script src="/static/js/chat.js"></script>
+</body>
+</html>

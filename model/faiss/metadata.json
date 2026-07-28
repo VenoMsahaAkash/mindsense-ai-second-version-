@@ -1,0 +1,128 @@
+[
+  {
+    "text": "# Cognitive Behavioral Therapy (CBT) Techniques & Clinical Principles ## Core CBT Principles Cognitive Behavioral Therapy (CBT) operates on the principle that our thoughts, feelings, physical sensations, and actions are interconnected. Negative and unhelpful thoughts can trap individuals in vicious cycles. CBT aims to help people break these cycles by breaking down problems into smaller parts and reframing cognitive distortions. ## Common Cognitive Distortions 1",
+    "source": "cbt_techniques.md",
+    "source_path": "D:\\MindSense-AI\\knowledge\\CBT\\cbt_techniques.md",
+    "category": "CBT",
+    "chunk_index": 0,
+    "total_chunks": 5,
+    "file_hash": "7ec39d8261cc092d9ea433fb6c35a1c2b5c18f9449628d1a278cf48b2dbe4e99"
+  },
+  {
+    "text": ". ## Common Cognitive Distortions 1. **Catastrophizing**: Expecting the absolute worst-case scenario to happen without objective evidence. 2. **Black-and-White Thinking**: Viewing situations in binary all-or-nothing terms (e.g., \"If I am not perfect, I am a failure\"). 3. **Emotional Reasoning**: Assuming that because you feel a certain way, it must reflect reality (e.g., \"I feel terrified, so I must be in grave danger\"). 4",
+    "source": "cbt_techniques.md",
+    "source_path": "D:\\MindSense-AI\\knowledge\\CBT\\cbt_techniques.md",
+    "category": "CBT",
+    "chunk_index": 1,
+    "total_chunks": 5,
+    "file_hash": "7ec39d8261cc092d9ea433fb6c35a1c2b5c18f9449628d1a278cf48b2dbe4e99"
+  },
+  {
+    "text": ". 4. **Mind Reading**: Assuming you know what others are thinking without checking. 5. **Overgeneralization**: Drawing broad conclusions from a single event. ## Key CBT Interventions ### 1. Thought Decoupling & Cognitive Restructuring - **Identify**: Notice automatic negative thoughts (ANTs) as they arise",
+    "source": "cbt_techniques.md",
+    "source_path": "D:\\MindSense-AI\\knowledge\\CBT\\cbt_techniques.md",
+    "category": "CBT",
+    "chunk_index": 2,
+    "total_chunks": 5,
+    "file_hash": "7ec39d8261cc092d9ea433fb6c35a1c2b5c18f9449628d1a278cf48b2dbe4e99"
+  },
+  {
+    "text": ". - **Examine Evidence**: Ask: *What is the objective evidence supporting this thought? What is the evidence against it?* - **Alternative Perspective**: Reframe the thought to a balanced, compassionate, and realistic alternative. ### 2. Behavioral Activation - Schedule small, manageable daily activities that provide a sense of achievement, connection, or pleasure. - Break overwhelming goals into micro-steps (2-minute rule) to overcome behavioral paralysis in depression and burnout. ### 3",
+    "source": "cbt_techniques.md",
+    "source_path": "D:\\MindSense-AI\\knowledge\\CBT\\cbt_techniques.md",
+    "category": "CBT",
+    "chunk_index": 3,
+    "total_chunks": 5,
+    "file_hash": "7ec39d8261cc092d9ea433fb6c35a1c2b5c18f9449628d1a278cf48b2dbe4e99"
+  },
+  {
+    "text": ". ### 3. Exposure and Response Prevention (ERP) - Gradual, controlled exposure to anxiety-provoking situations without engaging in avoidance or safety behaviors, allowing habituation to occur.",
+    "source": "cbt_techniques.md",
+    "source_path": "D:\\MindSense-AI\\knowledge\\CBT\\cbt_techniques.md",
+    "category": "CBT",
+    "chunk_index": 4,
+    "total_chunks": 5,
+    "file_hash": "7ec39d8261cc092d9ea433fb6c35a1c2b5c18f9449628d1a278cf48b2dbe4e99"
+  },
+  {
+    "text": "# General Evidence-Based Coping Strategies ## Grounding & Anxiety Relief 1. **5-4-3-2-1 Sensory Grounding**: - 5 things you can **see** around you. - 4 things you can physically **feel** (e.g. feet on floor, clothes on skin). - 3 things you can **hear**. - 2 things you can **smell**. - 1 deep, conscious **breath**. 2. **Box Breathing (4x4 Protocol)**: - Inhale through nose for 4 seconds. - Hold breath for 4 seconds. - Exhale through mouth for 4 seconds. - Hold empty for 4 seconds",
+    "source": "coping_methods.md",
+    "source_path": "D:\\MindSense-AI\\knowledge\\Coping\\coping_methods.md",
+    "category": "Coping",
+    "chunk_index": 0,
+    "total_chunks": 3,
+    "file_hash": "5e98240e83f75610bbe56c6a9e1902c50eb8dcfac673a47643893f3c47e49566"
+  },
+  {
+    "text": ". - Hold breath for 4 seconds. - Exhale through mouth for 4 seconds. - Hold empty for 4 seconds. - Repeat 4 cycles to lower physiological arousal. 3. **Physiological Sigh**: - Two quick inhales through the nose followed by one long, slow exhale through the mouth. - Immediately reduces carbon dioxide buildup and calms heart rate. ## Stress & Burnout Management - **Brain Dump**: Write down all thoughts, obligations, and worries onto paper to reduce cognitive load",
+    "source": "coping_methods.md",
+    "source_path": "D:\\MindSense-AI\\knowledge\\Coping\\coping_methods.md",
+    "category": "Coping",
+    "chunk_index": 1,
+    "total_chunks": 3,
+    "file_hash": "5e98240e83f75610bbe56c6a9e1902c50eb8dcfac673a47643893f3c47e49566"
+  },
+  {
+    "text": ". - **Eisenhower Matrix**: Prioritize tasks into Urgent vs Important to prevent feeling overwhelmed. - **Sleep Hygiene**: Maintain consistent wake/sleep times and avoid blue light screens 1 hour before sleep.",
+    "source": "coping_methods.md",
+    "source_path": "D:\\MindSense-AI\\knowledge\\Coping\\coping_methods.md",
+    "category": "Coping",
+    "chunk_index": 2,
+    "total_chunks": 3,
+    "file_hash": "5e98240e83f75610bbe56c6a9e1902c50eb8dcfac673a47643893f3c47e49566"
+  },
+  {
+    "text": "# Emergency Crisis Protocols & Safety Intervention ## Crisis Assessment & Response When an individual presents with acute distress, suicidal ideation, or self-harm intent: 1. **Empathetic Grounding**: Validate feelings without judgment or alarm. Speak with warmth and stability. 2. **Safety First**: Directly ask about safety while providing active emergency crisis helplines. 3",
+    "source": "crisis_protocol.md",
+    "source_path": "D:\\MindSense-AI\\knowledge\\Crisis\\crisis_protocol.md",
+    "category": "Crisis",
+    "chunk_index": 0,
+    "total_chunks": 2,
+    "file_hash": "08fd37a8261ae8f1666bb0340efb955d8bdbe163a3e556f440490e6ff5a1e568"
+  },
+  {
+    "text": ". **Safety First**: Directly ask about safety while providing active emergency crisis helplines. 3. **Pacing**: Help the individual focus on surviving just the next hour or next step, rather than solving all life problems at once. 4. **Crisis Helplines (India)**: - iCall Helpline: 9152987821 - Email: icall@tiss.edu",
+    "source": "crisis_protocol.md",
+    "source_path": "D:\\MindSense-AI\\knowledge\\Crisis\\crisis_protocol.md",
+    "category": "Crisis",
+    "chunk_index": 1,
+    "total_chunks": 2,
+    "file_hash": "08fd37a8261ae8f1666bb0340efb955d8bdbe163a3e556f440490e6ff5a1e568"
+  },
+  {
+    "text": "# Dialectical Behavior Therapy (DBT) Skills Guide ## Overview of DBT Dialectical Behavior Therapy (DBT) combines cognitive-behavioral approaches with mindfulness principles. It emphasizes finding a balance between **acceptance** of oneself and **change** in behavior. ## Core Modules & Techniques ### 1",
+    "source": "dbt_skills.md",
+    "source_path": "D:\\MindSense-AI\\knowledge\\DBT\\dbt_skills.md",
+    "category": "DBT",
+    "chunk_index": 0,
+    "total_chunks": 4,
+    "file_hash": "bd1d3818d70c843a1b30b2dda09b9bdecd76b4b7485acff6d2d91b09836be6fe"
+  },
+  {
+    "text": ". ## Core Modules & Techniques ### 1. TIPP Skills (Distress Tolerance) When emotional arousal is extremely high (8-10/10), TIPP skills quickly reset the autonomic nervous system: - **Temperature**: Splash cold water on your face or hold an ice cube to trigger the mammalian dive reflex and drop heart rate. - **Intense Exercise**: Engage in short bursts of intense physical activity (jumping jacks, fast walking) to expend fight-or-flight energy",
+    "source": "dbt_skills.md",
+    "source_path": "D:\\MindSense-AI\\knowledge\\DBT\\dbt_skills.md",
+    "category": "DBT",
+    "chunk_index": 1,
+    "total_chunks": 4,
+    "file_hash": "bd1d3818d70c843a1b30b2dda09b9bdecd76b4b7485acff6d2d91b09836be6fe"
+  },
+  {
+    "text": ". - **Paced Breathing**: Inhale for 4 seconds, exhale for 6-8 seconds. Longer exhales activate the parasympathetic nervous system. - **Paired Muscle Relaxation**: Tense muscle groups on an inhale, and release completely on an exhale. ### 2. STOP Skill (Crisis Survival) - **S - Stop**: Pause. Do not react immediately. - **T - Take a step back**: Disengage physically or mentally from the trigger. - **O - Observe**: Notice what is happening inside and outside without judgment",
+    "source": "dbt_skills.md",
+    "source_path": "D:\\MindSense-AI\\knowledge\\DBT\\dbt_skills.md",
+    "category": "DBT",
+    "chunk_index": 2,
+    "total_chunks": 4,
+    "file_hash": "bd1d3818d70c843a1b30b2dda09b9bdecd76b4b7485acff6d2d91b09836be6fe"
+  },
+  {
+    "text": ". - **O - Observe**: Notice what is happening inside and outside without judgment. - **P - Proceed mindfully**: Ask yourself what action will make the situation better, not worse. ### 3. Radical Acceptance - Acknowledging reality as it is in this present moment without fighting or resisting it. - Accepting a situation does not mean approving of it; it means ceasing the suffering caused by fighting unchangeable facts.",
+    "source": "dbt_skills.md",
+    "source_path": "D:\\MindSense-AI\\knowledge\\DBT\\dbt_skills.md",
+    "category": "DBT",
+    "chunk_index": 3,
+    "total_chunks": 4,
+    "file_hash": "bd1d3818d70c843a1b30b2dda09b9bdecd76b4b7485acff6d2d91b09836be6fe"
+  }
+]

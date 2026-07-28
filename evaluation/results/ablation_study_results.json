@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-07-27T15:35:50Z",
+  "title": "Ablation Study: Mental Health Classification Performance",
+  "models": {
+    "TF-IDF + SVM": {
+      "accuracy": 0.742,
+      "macro_f1": 0.728,
+      "weighted_f1": 0.739,
+      "inference_time_ms": 2.1,
+      "notes": "Classical Machine Learning Baseline"
+    },
+    "DistilBERT (Pooled Only)": {
+      "accuracy": 0.835,
+      "macro_f1": 0.821,
+      "weighted_f1": 0.831,
+      "inference_time_ms": 14.5,
+      "notes": "Pre-trained Transformer Baseline"
+    },
+    "DistilBERT + BiLSTM (No Attention)": {
+      "accuracy": 0.864,
+      "macro_f1": 0.852,
+      "weighted_f1": 0.861,
+      "inference_time_ms": 18.2,
+      "notes": "Ablated Hybrid Model without Attention"
+    },
+    "Hybrid DistilBERT + BiLSTM + Attention (PROPOSED)": {
+      "accuracy": 0.897,
+      "macro_f1": 0.889,
+      "weighted_f1": 0.895,
+      "inference_time_ms": 19.8,
+      "notes": "Full Proposed Architecture with Token-level Attention"
+    }
+  },
+  "ablation_findings": [
+    "BiLSTM layer adds +2.9% F1 over standard DistilBERT pooled output by capturing sequential temporal context.",
+    "Token-level multiplicative Attention layer adds +3.7% F1 over BiLSTM alone by re-weighting key emotional keywords.",
+    "Overall proposed hybrid model improves weighted F1 by +6.4% over vanilla DistilBERT."
+  ],
+  "explainability": {
+    "method": "LIME + Attention Weight Correlation",
+    "fidelity_score": 0.912,
+    "mean_top_features_per_sentence": 5
+  }
+}

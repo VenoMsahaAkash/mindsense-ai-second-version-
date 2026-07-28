@@ -1,0 +1,135 @@
+{
+  "timestamp": "2026-07-27T17:00:19Z",
+  "dataset": "datasets/test.csv",
+  "n_samples": 14,
+  "accuracy": 0.4286,
+  "per_class_accuracy": {
+    "Suicidal": 1.0,
+    "Depression": 1.0,
+    "Normal": 0.5,
+    "Anxiety": 0.5,
+    "Stress": 0.0,
+    "Bipolar": 0.0,
+    "Personality disorder": 0.0
+  },
+  "classification_report": {
+    "Suicidal": {
+      "precision": 0.6667,
+      "recall": 1.0,
+      "f1": 0.8,
+      "support": 2
+    },
+    "Depression": {
+      "precision": 0.2857,
+      "recall": 1.0,
+      "f1": 0.4444,
+      "support": 2
+    },
+    "Normal": {
+      "precision": 0.3333,
+      "recall": 0.5,
+      "f1": 0.4,
+      "support": 2
+    },
+    "Anxiety": {
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6667,
+      "support": 2
+    },
+    "Stress": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "support": 2
+    },
+    "Bipolar": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "support": 2
+    },
+    "Personality disorder": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "support": 2
+    },
+    "macro_avg": {
+      "precision": 0.3265,
+      "recall": 0.4286,
+      "f1": 0.3302
+    },
+    "weighted_avg": {
+      "precision": 0.3265,
+      "recall": 0.4286,
+      "f1": 0.3302
+    }
+  },
+  "confusion_matrix": {
+    "Suicidal": {
+      "Suicidal": 2,
+      "Depression": 0,
+      "Normal": 0,
+      "Anxiety": 0,
+      "Stress": 0,
+      "Bipolar": 0,
+      "Personality disorder": 0
+    },
+    "Depression": {
+      "Suicidal": 0,
+      "Depression": 2,
+      "Normal": 0,
+      "Anxiety": 0,
+      "Stress": 0,
+      "Bipolar": 0,
+      "Personality disorder": 0
+    },
+    "Normal": {
+      "Suicidal": 0,
+      "Depression": 1,
+      "Normal": 1,
+      "Anxiety": 0,
+      "Stress": 0,
+      "Bipolar": 0,
+      "Personality disorder": 0
+    },
+    "Anxiety": {
+      "Suicidal": 0,
+      "Depression": 1,
+      "Normal": 0,
+      "Anxiety": 1,
+      "Stress": 0,
+      "Bipolar": 0,
+      "Personality disorder": 0
+    },
+    "Stress": {
+      "Suicidal": 0,
+      "Depression": 0,
+      "Normal": 2,
+      "Anxiety": 0,
+      "Stress": 0,
+      "Bipolar": 0,
+      "Personality disorder": 0
+    },
+    "Bipolar": {
+      "Suicidal": 1,
+      "Depression": 1,
+      "Normal": 0,
+      "Anxiety": 0,
+      "Stress": 0,
+      "Bipolar": 0,
+      "Personality disorder": 0
+    },
+    "Personality disorder": {
+      "Suicidal": 0,
+      "Depression": 2,
+      "Normal": 0,
+      "Anxiety": 0,
+      "Stress": 0,
+      "Bipolar": 0,
+      "Personality disorder": 0
+    }
+  },
+  "avg_confidence": 0.6497
+}

@@ -1,0 +1,30 @@
+# Environment variables (CRITICAL: Do not commit API keys)
+.env
+
+# Python bytecode & Virtual environments
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Logs & temporary files
+logs/
+*.log
+
+# Large ML Models, Weights & Vector Indices (>50MB)
+*.pth
+*.pt
+*.safetensors
+*.faiss
+*.pkl
+model/classifier/phi2_therapy_final/*
+model/embedding_model/*
+!model/embedding_model/.gitkeep
+
+# OS / Editor files
+.DS_Store
+.vscode/
+.idea/
