@@ -22,7 +22,10 @@ logs/
 *.faiss
 *.pkl
 model/classifier/phi2_therapy_final/*
-model/embedding_model/*
+model/embedding_model/models--*
+model/embedding_model/.locks
+model/embedding_model/CACHEDIR.TAG
+!model/embedding_model/*.py
 !model/embedding_model/.gitkeep
 
 # OS / Editor files
