@@ -38,7 +38,7 @@ class AppConfig:
     SECRET_KEY: str = field(default_factory=lambda: os.getenv("SECRET_KEY", "mindsense-secret-key-change-in-production"))
     DEBUG: bool = field(default_factory=lambda: os.getenv("FLASK_DEBUG", "False").lower() == "true")
     HOST: str = field(default_factory=lambda: os.getenv("FLASK_HOST", "0.0.0.0"))
-    PORT: int = field(default_factory=lambda: int(os.getenv("FLASK_PORT", "5000")))
+    PORT: int = field(default_factory=lambda: int(os.getenv("PORT", os.getenv("FLASK_PORT", "7860"))))
     MAX_CONTENT_LENGTH: int = 16 * 1024 * 1024  # 16 MB max upload
 
     # Application metadata

@@ -1,3 +1,13 @@
+---
+title: MindSense AI
+emoji: 🧠
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # MindSense AI 🧠💙
 
 > **An AI-powered Mental Health Assistant using RAG, Hybrid Classifier, Google Gemini 2.5 Flash, and Flask**
