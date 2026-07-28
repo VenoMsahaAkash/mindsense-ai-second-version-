@@ -357,22 +357,8 @@ def initialize_app() -> None:
     except ValueError as e:
         logger.error(str(e))
 
-    # Try to load the FAISS index
-    if not index_manager.load():
-        logger.warning(
-            "FAISS knowledge index not found. "
-            "Run 'python rag/build_index.py' to build it. "
-            "The app will still work, but responses won't use RAG context."
-        )
-    else:
-        logger.info(f"FAISS index ready | vectors={index_manager.size}")
-
-    # Warm up the embedding model in background
-    try:
-        from rag.embeddings import warmup_embedding_model
-        warmup_embedding_model()
-    except Exception as e:
-        logger.warning(f"Embedding warmup skipped: {e}")
+    # Lazy load notice for memory optimization (512MB RAM constraint)
+    logger.info("RAG FAISS index and Embedding models will load lazily on first user chat request.")
 
     logger.info(f"Flask server ready on {settings.app.HOST}:{settings.app.PORT}")
     logger.info("=" * 55)
